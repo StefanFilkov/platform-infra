@@ -1,0 +1,31 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-dns
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-domashno-party
+  namespace: cert-manager
+spec:
+  secretName: wildcard-domashno-party-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-dns
+  commonName: "*.domashno.party"
+  dnsNames:
+  - "*.domashno.party"
+  - "domashno.party"
