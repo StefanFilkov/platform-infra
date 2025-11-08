@@ -86,6 +86,7 @@ kubectl apply -f tools/ingress-nginx/ingress-nginx.yaml
 kubectl apply -f tools/cert-issuer/
 kubectl apply -f tools/sealed-secrets/controller.yaml
 ```
+
 These manifests can later be managed by Argo CD itself (self-management pattern).
 
 ---
